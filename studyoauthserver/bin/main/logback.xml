@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	
+	<!-- 콘솔에 로그 남길 때 사용 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ] %cyan(%logger{20}) : %msg%n </pattern>
+		</encoder>
+		
+	</appender>
+	
+	<!-- 로그를 파일으로 남길 때 사용 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		
+		<file>sumin.log</file>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>sumin.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ] %cyan(%logger{20}) : %msg%n </pattern>
+		</encoder>
+		
+	</appender>
+	
+	<logger name="org.gradle" level="DEBUG" />
+	<logger name="org.springframework.web" level="DEBUG" />
+	
+	<!-- 
+	<logger name="org.springframework level="DEBUG" />
+	<logger name="org.hibernate level="DEBUG" />
+	 -->
+	
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<!-- 로그를 파일으로 남길 때 사용 -->
+		<!-- <appender-ref ref="FILE" /> -->
+	</root>
+	
+	<root leve="DEBUG">
+		<appender-ref ref="CONSOLE" />
+		<!-- 로그를 파일으로 남길 때 사용 -->
+		<!-- <appender-ref ref="FILE" /> -->
+	</root>
+	
+</configuration>

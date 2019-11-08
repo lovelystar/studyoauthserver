@@ -10,7 +10,8 @@ public class OAuthServerApplication extends SpringBootServletInitializer {
 	
 	public static void main(String[] args) throws Exception {
 		
-		SpringApplication.run(OAuthServerApplication.class);
+		System.setProperty("server.servlet.context-path", "/studyoauthserver");
+		SpringApplication.run(OAuthServerApplication.class, args);
 		
 	}
 	
