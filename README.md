@@ -3,49 +3,49 @@ MySQL 8 버전 이상 사용.
 사용할 테이블 생성
 *********************************************************************************************************************************************
 CREATE TABLE \`authorities\` (
-  `idx` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(128) NOT NULL,
-  `authority` varchar(128) NOT NULL,
-  `groupId` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`idx`),
-  UNIQUE KEY `authorities_unique` (`username`,`authority`),
-  CONSTRAINT `authorities_fk1` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+  \`idx\` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  \`username\` varchar(128) NOT NULL,
+  \`authority\` varchar(128) NOT NULL,
+  \`groupId\` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (\`idx\`),
+  UNIQUE KEY \`authorities_unique\` (\`username\`,\`authority\`),
+  CONSTRAINT \`authorities_fk1\` FOREIGN KEY (\`username\`) REFERENCES \`users\` (\`username\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `group_authorities` (
-  `idx` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `group_id` bigint(20) NOT NULL,
-  `authority` varchar(50) NOT NULL,
-  PRIMARY KEY (`idx`),
-  KEY `fk_group_authorities_group` (`group_id`),
-  CONSTRAINT `fk_group_authorities_group` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+CREATE TABLE \`group_authorities\` (
+  \`idx\` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  \`group_id\` bigint(20) NOT NULL,
+  \`authority\` varchar(50) NOT NULL,
+  PRIMARY KEY (\`idx\`),
+  KEY \`fk_group_authorities_group\` (\`group_id\`),
+  CONSTRAINT \`fk_group_authorities_group\` FOREIGN KEY (\`group_id\`) REFERENCES \`groups\` (\`id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `group_members` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `group_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_group_members_group` (`group_id`),
-  CONSTRAINT `fk_group_members_group` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+CREATE TABLE \`group_members\` (
+  \`id\` bigint(20) NOT NULL AUTO_INCREMENT,
+  \`username\` varchar(50) NOT NULL,
+  \`group_id\` bigint(20) NOT NULL,
+  PRIMARY KEY (\`id\`),
+  KEY \`fk_group_members_group\` (\`group_id\`),
+  CONSTRAINT \`fk_group_members_group\` FOREIGN KEY (\`group_id\`) REFERENCES \`groups\` (\`id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `groups` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE \`groups\` (
+  \`id\` bigint(20) NOT NULL AUTO_INCREMENT,
+  \`group_name\` varchar(50) NOT NULL,
+  PRIMARY KEY (\`id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `oauth_access_token` (
-  `token_id` varchar(255) DEFAULT NULL,
-  `token` blob,
-  `authentication_id` varchar(255) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `client_id` varchar(255) DEFAULT NULL,
-  `authentication` blob,
-  `refresh_token` varchar(255) DEFAULT NULL,
-  KEY `oauth_access_token_id` (`token_id`),
-  KEY `oauth_refresh_token_id` (`token_id`)
+CREATE TABLE \`oauth_access_token` (
+  \`token_id\` varchar(255) DEFAULT NULL,
+  \`token\` blob,
+  \`authentication_id\` varchar(255) DEFAULT NULL,
+  \`user_name\` varchar(255) DEFAULT NULL,
+  \`client_id\` varchar(255) DEFAULT NULL,
+  \`authentication\` blob,
+  \`refresh_token\` varchar(255) DEFAULT NULL,
+  KEY \`oauth_access_token_id\` (\`token_id\`),
+  KEY \`oauth_refresh_token_id\` (\`token_id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `oauth_approvals` (
@@ -132,20 +132,20 @@ CREATE TABLE `SPRING_SESSION` (
   KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
 
-CREATE TABLE `SPRING_SESSION_ATTRIBUTES` (
-  `SESSION_PRIMARY_ID` char(36) NOT NULL,
-  `ATTRIBUTE_NAME` varchar(190) NOT NULL,
-  `ATTRIBUTE_BYTES` blob NOT NULL,
-  PRIMARY KEY (`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME`),
-  CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `SPRING_SESSION` (`PRIMARY_ID`) ON DELETE CASCADE
+CREATE TABLE \`SPRING_SESSION_ATTRIBUTES\` (
+  \`SESSION_PRIMARY_ID\` char(36) NOT NULL,
+  \`ATTRIBUTE_NAME\` varchar(190) NOT NULL,
+  \`ATTRIBUTE_BYTES\` blob NOT NULL,
+  PRIMARY KEY (\`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME\`),
+  CONSTRAINT \`SPRING_SESSION_ATTRIBUTES_FK\` FOREIGN KEY (\`SESSION_PRIMARY_ID\`) REFERENCES \`SPRING_SESSION\` (\`PRIMARY_ID\`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
 
 CREATE TABLE `users` (
-  `username` varchar(128) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(128) NOT NULL,
-  `enabled` char(1) NOT NULL,
-  PRIMARY KEY (`username`)
+  \`username\` varchar(128) NOT NULL,
+  \`email\` varchar(100) NOT NULL,
+  \`password\` varchar(128) NOT NULL,
+  \`enabled\` char(1) NOT NULL,
+  PRIMARY KEY (\`username\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 *********************************************************************************************************************************************
