@@ -2,7 +2,7 @@ MySQL 8 버전 이상 사용.
 
 사용할 테이블 생성
 *********************************************************************************************************************************************
-CREATE TABLE `authorities` (
+CREATE TABLE \`authorities\` (
   `idx` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(128) NOT NULL,
   `authority` varchar(128) NOT NULL,
