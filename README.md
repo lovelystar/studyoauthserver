@@ -72,64 +72,64 @@ CREATE TABLE \`oauth_client_details\` (
   PRIMARY KEY (\`client_id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `oauth_client_token` (
-  `token_id` varchar(255) DEFAULT NULL,
-  `token` blob,
-  `authentication_id` varchar(255) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `client_id` varchar(255) DEFAULT NULL
+CREATE TABLE \`oauth_client_token\` (
+  \`token_id\` varchar(255) DEFAULT NULL,
+  \`token\` blob,
+  \`authentication_id\` varchar(255) DEFAULT NULL,
+  \`user_name\` varchar(255) DEFAULT NULL,
+  \`client_id\` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
-CREATE TABLE `oauth_code` (
-  `code` varchar(255) DEFAULT NULL,
-  `authentication` blob
+CREATE TABLE \`oauth_code\` (
+  \`code\` varchar(255) DEFAULT NULL,
+  \`authentication\` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
-CREATE TABLE `oauth_refresh_token` (
-  `token_id` varchar(255) DEFAULT NULL,
-  `token` blob,
-  `authentication` blob
+CREATE TABLE \`oauth_refresh_token\` (
+  \`token_id\` varchar(255) DEFAULT NULL,
+  \`token\` blob,
+  \`authentication\` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
-CREATE TABLE `oauth_resource` (
-  `idx` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
-  `resource_id` varchar(50) DEFAULT NULL,
-  `resource_name` varchar(50) DEFAULT NULL,
-  `resource_pattern` varchar(100) DEFAULT NULL,
-  `resource_type` varchar(10) DEFAULT NULL,
-  `sort_order` int(10) DEFAULT NULL,
-  `httpmethod` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`idx`)
+CREATE TABLE \`oauth_resource\` (
+  \`idx\` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  \`resource_id\` varchar(50) DEFAULT NULL,
+  \`resource_name\` varchar(50) DEFAULT NULL,
+  \`resource_pattern\` varchar(100) DEFAULT NULL,
+  \`resource_type\` varchar(10) DEFAULT NULL,
+  \`sort_order\` int(10) DEFAULT NULL,
+  \`httpmethod\` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (\`idx\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `oauth_resource_authority` (
-  `idx` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
-  `resource_id` varchar(50) DEFAULT NULL,
-  `authority` varchar(20) DEFAULT NULL,
-  `username` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`idx`)
+CREATE TABLE \`oauth_resource_authority\` (
+  \`idx\` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  \`resource_id\` varchar(50) DEFAULT NULL,
+  \`authority\` varchar(20) DEFAULT NULL,
+  \`username\` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (\`idx\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `persistent_logins` (
-  `username` varchar(64) NOT NULL,
-  `series` varchar(64) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`series`)
+CREATE TABLE \`persistent_logins\` (
+  \`username\` varchar(64) NOT NULL,
+  \`series\` varchar(64) NOT NULL,
+  \`token\` varchar(64) NOT NULL,
+  \`last_used\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (\`series\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `SPRING_SESSION` (
-  `PRIMARY_ID` char(36) NOT NULL,
-  `SESSION_ID` char(36) NOT NULL,
-  `CREATION_TIME` bigint(20) NOT NULL,
-  `LAST_ACCESS_TIME` bigint(20) NOT NULL,
-  `MAX_INACTIVE_INTERVAL` int(11) NOT NULL,
-  `EXPIRY_TIME` bigint(20) NOT NULL,
-  `PRINCIPAL_NAME` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`PRIMARY_ID`),
-  UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
-  KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),
-  KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`)
+CREATE TABLE \`SPRING_SESSION\` (
+  \`PRIMARY_ID\` char(36) NOT NULL,
+  \`SESSION_ID\` char(36) NOT NULL,
+  \`CREATION_TIME\` bigint(20) NOT NULL,
+  \`LAST_ACCESS_TIME\` bigint(20) NOT NULL,
+  \`MAX_INACTIVE_INTERVAL\` int(11) NOT NULL,
+  \`EXPIRY_TIME\` bigint(20) NOT NULL,
+  \`PRINCIPAL_NAME\` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (\`PRIMARY_ID\`),
+  UNIQUE KEY \`SPRING_SESSION_IX1\` (\`SESSION_ID\`),
+  KEY \`SPRING_SESSION_IX2\` (\`EXPIRY_TIME\`),
+  KEY \`SPRING_SESSION_IX3\` (\`PRINCIPAL_NAME\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
 
 CREATE TABLE \`SPRING_SESSION_ATTRIBUTES\` (
@@ -140,7 +140,7 @@ CREATE TABLE \`SPRING_SESSION_ATTRIBUTES\` (
   CONSTRAINT \`SPRING_SESSION_ATTRIBUTES_FK\` FOREIGN KEY (\`SESSION_PRIMARY_ID\`) REFERENCES \`SPRING_SESSION\` (\`PRIMARY_ID\`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
 
-CREATE TABLE `users` (
+CREATE TABLE \`users\` (
   \`username\` varchar(128) NOT NULL,
   \`email\` varchar(100) NOT NULL,
   \`password\` varchar(128) NOT NULL,
@@ -151,11 +151,17 @@ CREATE TABLE `users` (
 *********************************************************************************************************************************************
 
 
-jks 생성 keytool 사용법
+jks 생성 keytool 사용법 ( 2019. 11. 13 수정 )
 *********************************************************************************************************************************************
 환경변수 설정이 잘 되었다면 cmd에서 keytool을 사용할 수 있다.
-keytool -genkeypair -alias name -keyalg RSA -keypass name2019 -keystore name.jks -storepass name2019
+keytool -genkeypair -alias name -keyalg RSA -dname "CN=Web Server,OU=Unit,O=Organization,L=City,S=State,C=US" -keypass name2019 -keystore name.jks -storepass name2019
 만들어진 jks파일 가져다가 사용하면 됩니다.
+
+(추가) openssl 사용하여 publicKey를 txt파일로 저장하기
+1. jks파일을 이용하여 cer파일 생성 ( keytool -export -keystore name.jks -alias name -file public.cer )
+2. openssl을 이용하여 publicKey확인 ( openssl x509 -inform der -in public.cer -pubkey -noout )
+
+Tip. openssl 설치를 한 후 openssl실행파일에 있는 경로에 cer파일을 복사해두면 명령어 작성 시 경로까지 입력할 필요 없다.
 
 경로 = cmd처음 접속했을 때 보여지는 C:\User\ .... 
 *********************************************************************************************************************************************
