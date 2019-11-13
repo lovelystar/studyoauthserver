@@ -70,7 +70,7 @@ public class OAuthServerOAuth2Config extends AuthorizationServerConfigurerAdapte
 	// "/oauth/token_key"와 "/oauth/check_token"의 접근 권한 설정
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer authServer) throws Exception {
-		System.out.println("password = " + passwordEncoder.encode("password"));
+		
 		authServer
 			.tokenKeyAccess("permitAll()") // 모두 접근 가능
 			.checkTokenAccess("isAuthenticated()");
