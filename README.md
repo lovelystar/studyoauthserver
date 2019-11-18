@@ -3,13 +3,13 @@ MySQL 8 버전 이상 사용.
 사용할 테이블 생성
 *********************************************************************************************************************************************
 CREATE TABLE \`authorities\` (
-  \`idx\` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  \`username\` varchar(128) NOT NULL,
-  \`authority\` varchar(128) NOT NULL,
-  \`groupId\` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (\`idx\`),
-  UNIQUE KEY \`authorities_unique\` (\`username\`,\`authority\`),
-  CONSTRAINT \`authorities_fk1\` FOREIGN KEY (\`username\`) REFERENCES \`users\` (\`username\`)
+\`idx\` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+\`username\` varchar(128) NOT NULL,
+\`authority\` varchar(128) NOT NULL,
+\`groupId\` bigint(20) DEFAULT NULL,
+PRIMARY KEY (\`idx\`),
+UNIQUE KEY \`authorities_unique\` (\`username\`,\`authority\`),
+CONSTRAINT \`authorities_fk1\` FOREIGN KEY (\`username\`) REFERENCES \`users\` (\`username\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 CREATE TABLE \`group_authorities\` (
@@ -36,7 +36,7 @@ CREATE TABLE \`groups\` (
   PRIMARY KEY (\`id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE \`oauth_access_token` (
+CREATE TABLE \`oauth_access_token\` (
   \`token_id\` varchar(255) DEFAULT NULL,
   \`token\` blob,
   \`authentication_id\` varchar(255) DEFAULT NULL,
