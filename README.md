@@ -168,7 +168,7 @@ Tip. openssl 설치를 한 후 openssl실행파일에 있는 경로에 cer파일
 
 ! 해결해야 되는 사항
 JdbcUserDetailsManager에서 setEnableGroups부분이
-MySQL 8버전 이상은 그냥 groups가 아닌 `groups`로 호출해야만 에러가 나지 않기 때문에
+MySQL 8버전 이상은 그냥 groups가 아닌 \`groups\`로 호출해야만 에러가 나지 않기 때문에
 일단은 그룹기능 사용하지 않도록 setEnableGroups(false)로 변경.
 
 MySQL 8버전 이하는 true로 해도 괜찮다.
