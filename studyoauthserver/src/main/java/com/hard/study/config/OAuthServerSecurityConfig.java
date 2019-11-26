@@ -72,8 +72,9 @@ public class OAuthServerSecurityConfig extends WebSecurityConfigurerAdapter {
 						.tokenValiditySeconds(96400) // 쿠키 만료시간
 							.tokenRepository(persistentTokenRepository()) // 자동 로그인한 id, pwd 저장
 			.and()
-			.csrf()
-				.disable();
+			.cors()
+			.and()
+			.csrf();
 		
 	}
 	
