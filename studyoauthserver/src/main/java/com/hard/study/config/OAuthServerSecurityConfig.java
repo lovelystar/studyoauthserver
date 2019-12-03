@@ -1,10 +1,13 @@
 package com.hard.study.config;
 
+import java.util.Arrays;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,14 +26,24 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class OAuthServerSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+//	@Autowired
+//	private OAuthServerCustomLogoutConfig customLogout;
+	
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private Environment env;
 	
 	// 사용자 인증 처리 방식 선택 ( inMemory || JDBC 등 )
 	@Override
@@ -58,6 +71,14 @@ public class OAuthServerSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.formLogin() // security 기본 로그인 페이지 사용
 			.and()
+			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//					.deleteCookies("JSESSIONID")
+						.clearAuthentication(true)
+							.invalidateHttpSession(true)
+								.logoutSuccessUrl("http://localhost:8081/study/client/")
+//					.logoutSuccessHandler(customLogout)
+			.and()
 			.httpBasic()
 			.and()
 			.anonymous() // 인증되지 않은 사용자를 허용하지 않겠다.
@@ -75,6 +96,25 @@ public class OAuthServerSecurityConfig extends WebSecurityConfigurerAdapter {
 			.cors()
 			.and()
 			.csrf();
+		
+	}
+	
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		
+		CorsConfiguration corsConfig = new CorsConfiguration();
+		
+		corsConfig.setAllowedOrigins(Arrays.asList(env.getProperty("config.oauth2.study-base-url"))); // http://localhost:8081 으로 오는 것을 허용
+		corsConfig.setAllowCredentials(true);
+		corsConfig.setAllowedHeaders(Arrays.asList("Content-Type", "X-XSRF-TOKEN", "Authorization", "Content-Length", "X-Requested-With")); // Header
+		corsConfig.setAllowedMethods(Arrays.asList("*")); // GET, POST 같은 것
+		corsConfig.setMaxAge(3600L);
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		
+		source.registerCorsConfiguration("/**", corsConfig);
+		
+		return source;
 		
 	}
 	
