@@ -76,7 +76,7 @@ public class OAuthServerSecurityConfig extends WebSecurityConfigurerAdapter {
 //					.deleteCookies("JSESSIONID")
 						.clearAuthentication(true)
 							.invalidateHttpSession(true)
-								.logoutSuccessUrl("http://localhost:8081/study/client/")
+								.logoutSuccessUrl("http://localhost:8082/studyoauthserver/login")
 //					.logoutSuccessHandler(customLogout)
 			.and()
 			.httpBasic()
